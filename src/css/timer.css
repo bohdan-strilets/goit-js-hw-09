@@ -1,5 +1,4 @@
 body {
-  background-color: beige;
   text-align: center;
 }
 
@@ -8,8 +7,8 @@ input {
   height: 50px;
   padding: 0 10px 0 10px;
 
-  background-color: beige;
-  border: 1px solid #b4bb8f;
+  background-color: ffffff;
+  border: 1px solid #cccccc;
 }
 
 button {
@@ -17,15 +16,19 @@ button {
   height: 50px;
   margin-bottom: 50px;
 
-  background-color: #b4bb8f;
-  border: 1px solid #b4bb8f;
+  background-color: #cccccc;
+  border: 1px solid #cccccc;
   cursor: pointer;
+}
+
+button:disabled {
+  background-color: #e4e4e4;
 }
 
 button:hover,
 button:focus {
-  background-color: #bcc497;
-  border: 2px solid #bcc497;
+  background-color: #adadad;
+  border: 2px solid #adadad;
 }
 
 .timer {
@@ -41,7 +44,7 @@ button:focus {
   width: 100px;
   padding: 10px 0 10px 0;
   margin-right: 20px;
-  border: 1px solid #b4bb8f;
+  border: 1px solid #cccccc;
 }
 
 .field:last-child {
@@ -50,8 +53,9 @@ button:focus {
 
 .value {
   font-weight: 700;
+  font-size: 40px;
 }
 
 .label {
-  color: #bcc497;
+  color: #cccccc;
 }
