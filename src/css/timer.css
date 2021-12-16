@@ -16,8 +16,8 @@ button {
   height: 50px;
   margin-bottom: 50px;
 
-  background-color: #cccccc;
-  border: 1px solid #cccccc;
+  background-color: lightgreen;
+  border: none;
   cursor: pointer;
 }
 
