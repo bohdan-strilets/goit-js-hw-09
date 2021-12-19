@@ -65,12 +65,14 @@ class Timer {
     }
 
     this.isActive = true;
-
     this.timerID = setInterval(() => {
       const currentTime = Date.now();
       const deltaTime = selectedTime - currentTime;
       const componentsTimer = convertMs(deltaTime);
       this.updateComponentsTimer(componentsTimer);
+      if (deltaTime <= 0) {
+        this.stopTimer();
+      }
     }, 1000);
   }
 
@@ -79,15 +81,6 @@ class Timer {
     refs.hours.textContent = hours;
     refs.minutes.textContent = minutes;
     refs.seconds.textContent = seconds;
-
-    if (
-      refs.seconds.textContent <= 0 &&
-      refs.minutes.textContent <= 0 &&
-      refs.hours.textContent <= 0 &&
-      refs.days.textContent <= 0
-    ) {
-      this.stopTimer();
-    }
   }
 
   stopTimer() {

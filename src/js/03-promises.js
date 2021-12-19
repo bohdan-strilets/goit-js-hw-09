@@ -1,48 +1,39 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-const refs = {
-  form: document.querySelector('.form'),
-  inputs: document.querySelectorAll('input'),
-};
+const formRef = document.querySelector('.form');
+formRef.addEventListener('submit', onSubmitForm);
 
 function onSubmitForm(e) {
   e.preventDefault();
 
-  const dataForm = {
-    delay: refs.inputs[0].value,
-    step: refs.inputs[1].value,
-    amount: refs.inputs[2].value,
-  };
+  let delay = Number(e.currentTarget.delay.value);
+  const step = Number(e.currentTarget.step.value);
+  const amount = Number(e.currentTarget.amount.value);
 
-  let step = 0;
-  let delay = Number(dataForm.delay);
-
-  setTimeout(() => {
-    const intervalID = setInterval(() => {
-      step += 1;
-      if (step > 1) {
-        delay += Number(dataForm.step);
-      }
-
-      createPromise(step, delay)
-        .then(result => Notify.success(result))
-        .catch(error => Notify.failure(error));
-
-      if (step >= dataForm.amount) {
-        clearInterval(intervalID);
-      }
-    }, dataForm.step);
-  }, dataForm.delay);
+  for (let position = 1; position <= amount; position += 1) {
+    createPromise(position, delay)
+      .then(({ position, delay }) => {
+        setTimeout(() => {
+          Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, { useIcon: false });
+        }, delay);
+      })
+      .catch(({ position, delay }) => {
+        setTimeout(() => {
+          Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`, { useIcon: false });
+        }, delay);
+      });
+    delay += step;
+  }
 }
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
+  const objectPromise = { position, delay };
+
   return new Promise((resolve, reject) => {
     if (shouldResolve) {
-      resolve(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      resolve(objectPromise);
     }
-    reject(`❌ Rejected promise ${position} in ${delay}ms`);
+    reject(objectPromise);
   });
 }
-
-refs.form.addEventListener('submit', onSubmitForm);
